@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+   <!-- ※ 스프링이 제공하는 환경 설정 XML 파일 샘플 -->
+   <!--    → 스프링이 생성하고 관리해야 할 객체들에 대한 정보 전달 -->
+
+   <!-- CalculatorImpl 클래스의 객체 생성을 위한 정보 전달 .. 스프링 컨테이너가 하는 일--> 
+   <bean id="cal" class="com.test.spr.CalculatorImpl"></bean>
+   
+   <!-- CalculatorAspect 클래스의 객체 생성을 위한 정보 전달 .. 스프링 컨테이너가 하는 일--> 
+   <bean id="aspect" class="com.test.spr.CalculatorAspect"></bean>
+   
+   <!-- 스프링이 제공하는 가짜 객체(Proxy) 클래스의 객체 생성을 위한 정보 전달 -->
+   <!-- 『ProxyFactoryBean』 -->
+   <!-- 프록시를 이제 우리가 만드는 것이 아님. 스프링이 만든다. 프록시가 사라진 게 아님 ! ! ! -->
+   <bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+   	
+   		<!-- 주 업무 클래스의 인터페이스 정보 제공 -->
+   		<!-- → 『proxyInterfaces』 -->
+   		<property name="proxyInterfaces">
+   			<!-- 복수형의 element를 보낼 때는 list element를 써야 함 -->
+   			<list>
+   				<value>com.test.spr.Calculator</value>
+   				<!-- <value>com.test.spr.Calculator</value> -->
+   				<!-- <value>com.test.spr.Calculator</value> -->
+   			</list>
+   		</property>
+   		
+   		<!-- 주 업무 클래스의 인터페이스 정보 제공 -->
+   		<!-- → 『target』 -->
+   		<property name="target" ref="cal"></property>   
+
+   		<!-- 주 업무 클래스의 인터페이스 정보 제공 -->
+   		<!-- → 『interceptorNames』 -->
+   		<property name="interceptorNames">
+   			<list>
+   				<value>aspect</value>
+   			</list>
+   		</property>
+   		
+   </bean>
+   
+</beans>
