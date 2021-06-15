@@ -13,6 +13,12 @@
    <!-- CalculatorAspect 클래스의 객체 생성을 위한 정보 전달 .. 스프링 컨테이너가 하는 일--> 
    <bean id="aspect" class="com.test.spr.CalculatorAspect"></bean>
    
+   <!-- CalculatorBeforeAdvice 클래스의 객체 생성을 위한 정보 전달 -->
+   <bean id="before" class="com.test.spr.CalculatorBeforeAdvice"></bean>
+   
+   <!-- CalculatorAfterThrowing 클래스의 객체 생성을 위한 정보 전달 -->
+   <bean id="afterThrowing" class="com.test.spr.CalculatorAfterThrowing"></bean>
+   
    <!-- 스프링이 제공하는 가짜 객체(Proxy) 클래스의 객체 생성을 위한 정보 전달 -->
    <!-- 『ProxyFactoryBean』 -->
    <!-- 프록시를 이제 우리가 만드는 것이 아님. 스프링이 만든다. 프록시가 사라진 게 아님 ! ! ! -->
@@ -37,7 +43,16 @@
    		<!-- → 『interceptorNames』 -->
    		<property name="interceptorNames">
    			<list>
+   			
+   				<!-- Around Advice 지정 -->
    				<value>aspect</value>
+   				
+   				<!-- Before Advice 지정 -->
+   				<value>before</value>
+   				
+   				<!-- After Throwing Advice 지정 -->
+   				<value>afterThrowing</value>
+   				
    			</list>
    		</property>
    		
